@@ -85,19 +85,19 @@ const InfixCalculator: React.FC = () => {
       </div>
       <div className="grid grid-cols-4 gap-2">
         {[..."0123456789"].map((num) => (
-          <button key={num} onClick={() => handleNumber(num)} className="p-4 bg-gray-200 hover:bg-gray-300 text-xl rounded-lg">
+          <button key={num} onClick={() => handleNumber(num)} className="p-4 bg-gray-200 hover:bg-gray-300 text-xl rounded-lg transition-colors duration-200">
             {num}
           </button>
         ))}
         {["+", "-", "*", "/"].map((op) => (
-          <button key={op} onClick={() => handleOperator(op)} className="p-4 bg-blue-200 hover:bg-blue-300 text-xl rounded-lg">
+          <button key={op} onClick={() => handleOperator(op)} className="p-4 bg-blue-200 hover:bg-blue-300 text-xl rounded-lg transition-colors duration-200">
             {op}
           </button>
         ))}
-        <button onClick={handleEquals} className="p-4 bg-green-200 hover:bg-green-300 text-xl rounded-lg col-span-2">
+        <button onClick={handleEquals} className="p-4 bg-green-200 hover:bg-green-300 text-xl rounded-lg col-span-2 transition-colors duration-200">
           =
         </button>
-        <button onClick={handleClear} className="p-4 bg-red-200 hover:bg-red-300 text-xl rounded-lg col-span-2">
+        <button onClick={handleClear} className="p-4 bg-red-200 hover:bg-red-300 text-xl rounded-lg col-span-2 transition-colors duration-200">
           Clear
         </button>
       </div>
