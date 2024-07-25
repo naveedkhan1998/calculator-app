@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const InfixCalculator: React.FC = () => {
+const InfixCalculator: React.FC<{ darkMode: boolean }> = ({ darkMode }) => {
   const [state, setState] = useState("initial");
   const [n1, setN1] = useState("");
   const [n2, setN2] = useState("");
@@ -78,26 +78,48 @@ const InfixCalculator: React.FC = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto bg-white p-8 shadow-md rounded-lg">
-      <h1 className="text-3xl font-bold mb-6 text-center">Infix Calculator</h1>
-      <div>
-        <input type="text" value={display} readOnly className="border p-2 mb-4 w-full text-right text-xl" />
+    <div className={`max-w-md mx-auto p-8 shadow-lg rounded-lg ${darkMode ? "bg-gray-800 text-gray-100" : "bg-gray-100 text-gray-800"}`}>
+      <h1 className="text-4xl font-extrabold mb-2 text-center">Infix Calculator</h1>
+      <p className="text-lg text-center mb-6">
+        State: <span className="font-bold">{state}</span>
+      </p>
+      <div className="mb-4">
+        <input
+          type="text"
+          value={display}
+          readOnly
+          className={`border-2 p-4 w-full text-right text-3xl rounded-lg shadow-sm ${darkMode ? "bg-gray-700 border-gray-600" : "bg-white border-gray-300"}`}
+        />
       </div>
-      <div className="grid grid-cols-4 gap-2">
+      <div className="grid grid-cols-4 gap-4">
         {[..."0123456789"].map((num) => (
-          <button key={num} onClick={() => handleNumber(num)} className="p-4 bg-gray-200 hover:bg-gray-300 text-xl rounded-lg transition-colors duration-200">
+          <button
+            key={num}
+            onClick={() => handleNumber(num)}
+            className={`p-6 rounded-lg transition-colors duration-200 shadow-sm ${darkMode ? "bg-gray-700 hover:bg-gray-600" : "bg-gray-200 hover:bg-gray-300"} text-2xl`}
+          >
             {num}
           </button>
         ))}
         {["+", "-", "*", "/"].map((op) => (
-          <button key={op} onClick={() => handleOperator(op)} className="p-4 bg-blue-200 hover:bg-blue-300 text-xl rounded-lg transition-colors duration-200">
+          <button
+            key={op}
+            onClick={() => handleOperator(op)}
+            className={`p-6 rounded-lg transition-colors duration-200 shadow-sm ${darkMode ? "bg-blue-700 hover:bg-blue-600" : "bg-blue-400 hover:bg-blue-500"} text-2xl text-white`}
+          >
             {op}
           </button>
         ))}
-        <button onClick={handleEquals} className="p-4 bg-green-200 hover:bg-green-300 text-xl rounded-lg col-span-2 transition-colors duration-200">
+        <button
+          onClick={handleEquals}
+          className={`p-6 rounded-lg col-span-2 transition-colors duration-200 shadow-sm ${darkMode ? "bg-green-700 hover:bg-green-600" : "bg-green-400 hover:bg-green-500"} text-2xl text-white`}
+        >
           =
         </button>
-        <button onClick={handleClear} className="p-4 bg-red-200 hover:bg-red-300 text-xl rounded-lg col-span-2 transition-colors duration-200">
+        <button
+          onClick={handleClear}
+          className={`p-6 rounded-lg col-span-2 transition-colors duration-200 shadow-sm ${darkMode ? "bg-red-700 hover:bg-red-600" : "bg-red-400 hover:bg-red-500"} text-2xl text-white`}
+        >
           Clear
         </button>
       </div>
