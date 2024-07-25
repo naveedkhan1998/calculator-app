@@ -1,5 +1,3 @@
-// src/pages/InfixCalculator.tsx
-
 import React, { useState } from "react";
 
 const InfixCalculator: React.FC = () => {
@@ -31,14 +29,13 @@ const InfixCalculator: React.FC = () => {
     if (state === "input1" || state === "result") {
       setOperator(key);
       setState("operator");
-      setDisplay(n1 + " " + key);
     } else if (state === "input2") {
       const result = applyOperator(n1, operator, n2);
       setN1(result.toString());
       setOperator(key);
       setN2("");
       setState("operator");
-      setDisplay(result + " " + key);
+      setDisplay(result.toString());
     }
   };
 

@@ -22,7 +22,7 @@ const RPNCalculator: React.FC = () => {
       const newStack = [...stack, parseFloat(n1)];
       setStack(newStack);
       setN1("");
-      setDisplay(newStack.join(" "));
+      setDisplay(n1);
       setState("initial");
     }
   };
@@ -39,7 +39,7 @@ const RPNCalculator: React.FC = () => {
       const n2 = newStack.pop()!;
       const n1 = newStack.pop()!;
       const result = applyOperator(n1, key, n2);
-      newStack.push(result);  // Append the result to the stack
+      newStack.push(result); // Append the result to the stack
       setStack(newStack);
       setDisplay(result.toString());
       setState("operate");

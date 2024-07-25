@@ -3,7 +3,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import InfixCalculator from "./pages/InfixCalculator";
-import OtherCalculator2 from "./pages/OtherCalculator2";
+import INFIXFULLCalculator from "./pages/INFIXFULLCalculator";
 import RPNCalculator from "./pages/RPNCalculator";
 
 const App: React.FC = () => {
@@ -18,8 +18,8 @@ const App: React.FC = () => {
             <Link to="/rpn" className="hover:underline">
               RPN Calculator
             </Link>
-            <Link to="/other2" className="hover:underline">
-              Other Calculator 2
+            <Link to="/infix-full" className="hover:underline">
+              INFIX FULL Calculator
             </Link>
           </nav>
         </header>
@@ -27,7 +27,7 @@ const App: React.FC = () => {
           <Routes>
             <Route path="/" element={<InfixCalculator />} />
             <Route path="/rpn" element={<RPNCalculator />} />
-            <Route path="/other2" element={<OtherCalculator2 />} />
+            <Route path="/infix-full" element={<INFIXFULLCalculator />} />
           </Routes>
         </main>
         <footer className="bg-blue-600 text-white p-4 text-center">
