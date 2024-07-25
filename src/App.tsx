@@ -85,7 +85,7 @@ const App = () => {
       </main>
 
       <footer className={`w-full py-4 ${darkMode ? "bg-gray-800" : "bg-blue-600"} text-white text-center`}>
-        <p>&copy; 2024 Calculator App. All rights reserved.</p>
+        <p>&copy; 2024 Calculator App HCI Assignment. All rights reserved.</p>
       </footer>
     </div>
   );

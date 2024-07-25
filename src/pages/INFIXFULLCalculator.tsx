@@ -1,5 +1,81 @@
 import React, { useState } from "react";
 
+// Helper function to get operator precedence
+const getPrecedence = (op: string) => {
+  if (op === "+" || op === "-") return 1;
+  if (op === "*" || op === "/") return 2;
+  return 0;
+};
+
+// Helper function to apply an operator to two numbers
+const applyOperator = (a: number, b: number, op: string) => {
+  switch (op) {
+    case "+":
+      return a + b;
+    case "-":
+      return a - b;
+    case "*":
+      return a * b;
+    case "/":
+      return a / b;
+    default:
+      return 0;
+  }
+};
+
+// Function to evaluate an infix expression
+const evaluateExpression = (expression: string) => {
+  const ops: string[] = [];
+  const values: number[] = [];
+
+  let i = 0;
+  while (i < expression.length) {
+    if (expression[i] === " ") {
+      i++;
+      continue;
+    }
+
+    if (expression[i] >= "0" && expression[i] <= "9") {
+      let buffer = "";
+      while (i < expression.length && expression[i] >= "0" && expression[i] <= "9") {
+        buffer += expression[i++];
+      }
+      values.push(parseInt(buffer, 10));
+      continue;
+    }
+
+    if (expression[i] === "(") {
+      ops.push(expression[i]);
+    } else if (expression[i] === ")") {
+      while (ops.length && ops[ops.length - 1] !== "(") {
+        const val2 = values.pop();
+        const val1 = values.pop();
+        const op = ops.pop();
+        values.push(applyOperator(val1!, val2!, op!));
+      }
+      ops.pop();
+    } else if (["+", "-", "*", "/"].includes(expression[i])) {
+      while (ops.length && getPrecedence(ops[ops.length - 1]) >= getPrecedence(expression[i])) {
+        const val2 = values.pop();
+        const val1 = values.pop();
+        const op = ops.pop();
+        values.push(applyOperator(val1!, val2!, op!));
+      }
+      ops.push(expression[i]);
+    }
+    i++;
+  }
+
+  while (ops.length) {
+    const val2 = values.pop();
+    const val1 = values.pop();
+    const op = ops.pop();
+    values.push(applyOperator(val1!, val2!, op!));
+  }
+
+  return values[0];
+};
+
 const INFIXFULLCalculator: React.FC<{ darkMode: boolean }> = ({ darkMode }) => {
   const [expression, setExpression] = useState("");
   const [display, setDisplay] = useState("0");
@@ -33,7 +109,7 @@ const INFIXFULLCalculator: React.FC<{ darkMode: boolean }> = ({ darkMode }) => {
 
   const handleEqual = () => {
     try {
-      const result = eval(expression);
+      const result = evaluateExpression(expression);
       setDisplay(result.toString());
       setExpression(result.toString());
       setCurrentNumber(result.toString());
