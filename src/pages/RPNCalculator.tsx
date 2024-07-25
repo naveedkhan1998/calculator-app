@@ -1,5 +1,3 @@
-// src/pages/RPNCalculator.tsx
-
 import React, { useState } from "react";
 
 const RPNCalculator: React.FC = () => {
@@ -20,7 +18,7 @@ const RPNCalculator: React.FC = () => {
   };
 
   const handleEnter = () => {
-    if (state === "input1") {
+    if (state === "input1" && n1 !== "") {
       const newStack = [...stack, parseFloat(n1)];
       setStack(newStack);
       setN1("");
@@ -30,14 +28,21 @@ const RPNCalculator: React.FC = () => {
   };
 
   const handleOperator = (key: string) => {
-    if (stack.length >= 2) {
-      const n2 = stack.pop()!;
-      const n1 = stack.pop()!;
-      const result = applyOperator(n1, key, n2);
-      const newStack = [...stack, result];
+    let newStack = stack;
+    if (state === "input1" && n1 !== "") {
+      newStack = [...stack, parseFloat(n1)];
       setStack(newStack);
-      setDisplay(newStack.join(" "));
-      setState("initial");
+      setN1("");
+    }
+
+    if (newStack.length >= 2) {
+      const n2 = newStack.pop()!;
+      const n1 = newStack.pop()!;
+      const result = applyOperator(n1, key, n2);
+      newStack.push(result);  // Append the result to the stack
+      setStack(newStack);
+      setDisplay(result.toString());
+      setState("operate");
     }
   };
 
